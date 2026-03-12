@@ -1,0 +1,45 @@
+# ============================================================
+# config.example.yaml
+# ============================================================
+# 使用说明：
+#   1. 将此文件复制为 config.yaml：  cp config.example.yaml config.yaml
+#   2. 根据实际情况修改 config.yaml 中的配置项
+#   3. config.yaml 已被 .gitignore 忽略，不会意外提交到版本库
+#
+# 命令行参数优先级高于此文件（config.yaml 为默认值来源，
+# 未来版本将支持自动读取此文件，当前请直接使用命令行参数）
+# ============================================================
+
+# ── 目标 Agent 配置 ──
+agent:
+  # 目标 Agent 的根 URL
+  url: "http://localhost:8000"
+  # 单次 HTTP 请求超时时间（秒）
+  timeout: 30
+  # 网络错误最大重试次数
+  max_retries: 3
+
+# ── 评估配置 ──
+eval:
+  # 评估方法: "exact"（精确匹配）或 "llm_judge"（LLM 裁判）
+  method: "exact"
+
+# ── LLM Judge 配置（eval.method = "llm_judge" 时生效）──
+llm_judge:
+  # 评测模型，推荐 gpt-4o-mini（速度快、成本低）
+  model: "gpt-4o-mini"
+
+  # OpenAI API Key
+  # ⚠️ 安全提示：强烈建议通过环境变量 OPENAI_API_KEY 设置，
+  #              避免将密钥写入配置文件并意外提交到版本库！
+  api_key: ""
+
+  # 自定义 API 端点（留空则使用 OpenAI 官方地址）
+  # 示例（DeepSeek）: "https://api.deepseek.com/v1"
+  # 示例（本地 Ollama）: "http://localhost:11434/v1"
+  base_url: ""
+
+# ── 报告输出配置 ──
+report:
+  # Markdown 报告输出路径，留空则不导出文件
+  output: "reports/report.md"

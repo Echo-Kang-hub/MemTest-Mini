@@ -1,0 +1,72 @@
+[
+  {
+    "test_id": "ret_001",
+    "type": "retrieval",
+    "description": "在多轮无关干扰对话后，能准确检索宠物名字",
+    "setup": [
+      {"role": "user", "content": "我养了一只叫'旺财'的柯基，它今年3岁了，特别活泼。"},
+      {"role": "user", "content": "今天北京天气真好，阳光明媚，适合出去遛弯。"},
+      {"role": "user", "content": "你觉得 Python 和 Go 哪个更适合做后端开发？"},
+      {"role": "user", "content": "最近全球经济形势怎么样，感觉股市很不稳定。"}
+    ],
+    "query": "我的狗叫什么名字？",
+    "expected_response_contains": ["旺财"],
+    "require_all": true
+  },
+  {
+    "test_id": "ret_002",
+    "type": "retrieval",
+    "description": "结合多条记忆给出个性化建议（过敏史 + 健身目标）",
+    "setup": [
+      {"role": "user", "content": "我对花生和坚果类食品过敏，餐厅点餐时需要特别注意。"},
+      {"role": "user", "content": "我最近在健身减肥，目标是三个月内减掉15斤。"},
+      {"role": "user", "content": "上海明天会下雨吗？"},
+      {"role": "user", "content": "给我讲一个轻松的笑话吧。"}
+    ],
+    "query": "请给我推荐一种适合我现状的健康零食。",
+    "expected_response_contains": ["花生"],
+    "require_all": false
+  },
+  {
+    "test_id": "ret_003",
+    "type": "retrieval",
+    "description": "跨越较长对话历史的远程记忆检索（家庭信息）",
+    "setup": [
+      {"role": "user", "content": "我哥哥叫王建国，在深圳的一家科技公司工作，从事硬件研发。"},
+      {"role": "user", "content": "帮我写一首关于秋天的五言绝句。"},
+      {"role": "user", "content": "高中数学最难的知识点是什么？"},
+      {"role": "user", "content": "推荐几部好看的科幻电影。"},
+      {"role": "user", "content": "中国的四大名著是哪四部？"}
+    ],
+    "query": "我哥哥在哪个城市工作？",
+    "expected_response_contains": ["深圳"],
+    "require_all": true
+  },
+  {
+    "test_id": "ret_004",
+    "type": "retrieval",
+    "description": "个人阅读偏好的检索与个性化推荐",
+    "setup": [
+      {"role": "user", "content": "我非常喜欢看悬疑推理类的书籍，最近刚看完东野圭吾的《白夜行》，觉得非常精彩。"},
+      {"role": "user", "content": "今天中午吃什么好？"},
+      {"role": "user", "content": "帮我把这句话翻译成英文：今天天气不错。"}
+    ],
+    "query": "你能根据我的喜好给我推荐一本新书吗？",
+    "expected_response_contains": ["悬疑", "推理"],
+    "require_all": false
+  },
+  {
+    "test_id": "ret_005",
+    "type": "retrieval",
+    "description": "在角色扮演干扰对话后，真实个人信息仍应被正确检索",
+    "setup": [
+      {"role": "user", "content": "我的生日是每年的10月15日，我超喜欢过生日。"},
+      {"role": "user", "content": "现在我们来玩角色扮演，你扮演一个海盗船长，我扮演你的副手。"},
+      {"role": "user", "content": "（船长，我们发现了一座无人岛！）"},
+      {"role": "user", "content": "好了，角色扮演结束。"}
+    ],
+    "query": "我的生日是哪天？",
+    "expected_response_contains": ["10月15日", "10月15"],
+    "require_all": false
+  }
+]

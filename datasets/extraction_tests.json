@@ -1,0 +1,79 @@
+[
+  {
+    "test_id": "ext_001",
+    "type": "extraction",
+    "description": "从含噪音的对话中提取单条关键健康信息（食物过敏）",
+    "turns": [
+      {
+        "role": "user",
+        "content": "今天天气真不错，我出去逛了一圈，买了些东西。对了，顺便说一句，我对海鲜严重过敏，上次吃虾差点送医院。"
+      }
+    ],
+    "expected_memory_contains": ["海鲜过敏"],
+    "require_all": true
+  },
+  {
+    "test_id": "ext_002",
+    "type": "extraction",
+    "description": "从单轮对话中提取多条个人基本信息",
+    "turns": [
+      {
+        "role": "user",
+        "content": "我叫李明，今年28岁，是一名软件工程师，在北京工作。我最喜欢打篮球，周末经常去公园跑步健身。"
+      }
+    ],
+    "expected_memory_contains": ["李明", "软件工程师", "篮球"],
+    "require_all": true
+  },
+  {
+    "test_id": "ext_003",
+    "type": "extraction",
+    "description": "关键信息在多轮无关对话后应在记忆中持续保留",
+    "turns": [
+      {
+        "role": "user",
+        "content": "我目前居住在上海浦东新区，已经住了三年了。"
+      },
+      {
+        "role": "user",
+        "content": "今天天气怎么样？"
+      },
+      {
+        "role": "user",
+        "content": "帮我推荐一首轻松的背景音乐。"
+      }
+    ],
+    "expected_memory_contains": ["上海"],
+    "require_all": true
+  },
+  {
+    "test_id": "ext_004",
+    "type": "extraction",
+    "description": "提取隐含的长期目标信息（非直接陈述）",
+    "turns": [
+      {
+        "role": "user",
+        "content": "我最近一直在备考英语六级，每天晚上自学两个小时，已经坚持了三个月，感觉还差得很远，压力挺大的。"
+      }
+    ],
+    "expected_memory_contains": ["英语六级", "备考"],
+    "require_all": false
+  },
+  {
+    "test_id": "ext_005",
+    "type": "extraction",
+    "description": "从多轮对话中提取分散在不同轮次的信息",
+    "turns": [
+      {
+        "role": "user",
+        "content": "我是素食主义者，不吃任何肉类和鱼类。"
+      },
+      {
+        "role": "user",
+        "content": "顺便提一下，我对坚果也过敏，特别是花生。"
+      }
+    ],
+    "expected_memory_contains": ["素食", "花生过敏"],
+    "require_all": true
+  }
+]

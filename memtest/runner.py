@@ -288,11 +288,11 @@ class TestRunner:
         self, tc: UpdateTestCase, user_id: str
     ) -> TestCaseResult:
         """
-        执行记忆更新与冲突解决测试用例。
+        执行记忆更新与融合测试用例。
 
         流程：发送包含旧→新状态变更的对话 → 发送 query → 双重评估：
           1. 回复是否体现最新状态（response_contains_check）
-          2. 记忆库是否清除了旧状态（memory_excludes_check）
+          2. 记忆库是否已包含更新后的当前状态（memory_contains_check，验证融合）
         """
         agent_responses: List[str] = []
         sub_checks: List[SubCheckResult] = []
@@ -318,17 +318,17 @@ class TestRunner:
         )
         sub_checks.append(response_check)
 
-        # 3. 白盒读取记忆库，验证旧记忆是否已被清除（核心测试点！）
-        if tc.expected_memory_excludes:
+        # 3. 白盒读取记忆库，验证更新后的状态已被正确融合进记忆（核心测试点！）
+        if tc.expected_memory_contains:
             mem_resp = self.client.get_memory(user_id=user_id)
             self._log(f"记忆库: {str(mem_resp.memories)[:120]}...")
-            exclude_check = self.exact_eval.check_excludes(
+            memory_check = self.exact_eval.check_contains(
                 content=mem_resp.memories,
-                excluded_items=tc.expected_memory_excludes,
-                require_all_absent=tc.require_all_excludes,
-                check_name="memory_excludes_check",
+                expected_items=tc.expected_memory_contains,
+                require_all=tc.require_all_memory,
+                check_name="memory_contains_check",
             )
-            sub_checks.append(exclude_check)
+            sub_checks.append(memory_check)
 
         # 整体状态：所有子检查都通过才算通过
         if any(c.status == ResultStatus.ERROR for c in sub_checks):

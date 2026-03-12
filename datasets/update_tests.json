@@ -2,71 +2,71 @@
   {
     "test_id": "upd_001",
     "type": "update",
-    "description": "职业变更：新记忆（摄影师）必须覆盖旧记忆（程序员）",
+    "description": "职业变更：当前职业（摄影师）应被融合进记忆，回复须体现最新状态",
     "turns": [
       {"role": "user", "content": "我现在的职业是程序员，在一家互联网大厂工作，主要做后端开发。"},
       {"role": "user", "content": "我上个月辞职了，现在转行做独立摄影师了，专拍人文纪实，感觉非常自由。"}
     ],
     "query": "我现在是做什么工作的？",
     "expected_response_contains": ["摄影师"],
-    "expected_memory_excludes": ["程序员"],
+    "expected_memory_contains": ["摄影师"],
     "require_all_contains": true,
-    "require_all_excludes": true
+    "require_all_memory": true
   },
   {
     "test_id": "upd_002",
     "type": "update",
-    "description": "居住地变更：新城市（北京）必须覆盖旧城市（上海）",
+    "description": "居住地变更：当前城市（北京）应被融合进记忆，回复须体现最新居住地",
     "turns": [
       {"role": "user", "content": "我住在上海浦东，已经在这里生活了五年了，非常熟悉这座城市。"},
       {"role": "user", "content": "对了，我最近刚搬家了，因为工作调动，现在住在北京朝阳区，刚安顿好。"}
     ],
     "query": "我现在住在哪个城市？",
     "expected_response_contains": ["北京"],
-    "expected_memory_excludes": ["上海"],
+    "expected_memory_contains": ["北京"],
     "require_all_contains": true,
-    "require_all_excludes": true
+    "require_all_memory": true
   },
   {
     "test_id": "upd_003",
     "type": "update",
-    "description": "健康状态更新：虾过敏消失，新增芒果过敏",
+    "description": "健康状态更新：新增芒果过敏必须被记忆融合，回复须体现当前过敏状态",
     "turns": [
       {"role": "user", "content": "我以前对虾严重过敏，所以从来不敢吃任何海鲜或者虾类食品。"},
       {"role": "user", "content": "经过一年的脱敏免疫治疗，医生说我现在对虾不再过敏了，可以正常吃海鲜了！但是最近检查发现我对芒果过敏，需要回避。"}
     ],
     "query": "我目前对什么食物过敏？",
     "expected_response_contains": ["芒果"],
-    "expected_memory_excludes": ["虾过敏"],
+    "expected_memory_contains": ["芒果"],
     "require_all_contains": true,
-    "require_all_excludes": true
+    "require_all_memory": true
   },
   {
     "test_id": "upd_004",
     "type": "update",
-    "description": "宠物状态更新：新宠物（猫/雪球）应被记录",
+    "description": "宠物状态更新：新宠物（猫/雪球）应被记录融合进记忆",
     "turns": [
       {"role": "user", "content": "我家有一只金毛寻回犬，叫大黄，今年5岁，非常温顺。"},
       {"role": "user", "content": "大黄上周因病不幸离世了，我非常难过。最近我去猫咖认养了一只布偶猫，给它起了个名字叫雪球，它现在陪伴着我。"}
     ],
     "query": "我现在养了什么宠物？",
     "expected_response_contains": ["雪球", "猫"],
-    "expected_memory_excludes": null,
+    "expected_memory_contains": ["雪球"],
     "require_all_contains": false,
-    "require_all_excludes": true
+    "require_all_memory": true
   },
   {
     "test_id": "upd_005",
     "type": "update",
-    "description": "语言学习目标更新：从日语学习切换为西班牙语",
+    "description": "语言学习目标切换：当前学习语言（西班牙语）应被融合进记忆，回复须体现最新目标",
     "turns": [
       {"role": "user", "content": "我最近在学日语，已经通过了 N4 考试，目标是明年通过 N2。"},
       {"role": "user", "content": "我决定暂停日语学习了，因为工作需要，我转而开始学西班牙语，目标是半年内达到 B1 水平。"}
     ],
     "query": "我目前在学习哪门外语？",
     "expected_response_contains": ["西班牙语"],
-    "expected_memory_excludes": ["日语"],
+    "expected_memory_contains": ["西班牙语"],
     "require_all_contains": true,
-    "require_all_excludes": true
+    "require_all_memory": true
   }
 ]

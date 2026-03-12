@@ -98,12 +98,14 @@ class RetrievalTestCase(BaseModel):
 
 class UpdateTestCase(BaseModel):
     """
-    记忆更新与冲突解决测试用例。
+    记忆更新与融合测试用例。
 
-    目的：验证面对状态变更时，Agent 会修改旧记忆而不是留下两条冲突记录。
+    目的：验证面对状态变更时，Agent 能在回复中体现最新状态，同时在记忆库中
+          以融合方式保留历史上下文（如"曾经是程序员，现在是摄影师"），
+          而不是简单地删除旧记录。
     评估方式（双重检查）：
       1. 检查最终回复包含最新状态（expected_response_contains）
-      2. 检查记忆库中旧状态已被清除（expected_memory_excludes）
+      2. 检查记忆库中已包含更新后的当前状态（expected_memory_contains）
     """
     test_id: str
     type: Literal["update"]
@@ -115,15 +117,15 @@ class UpdateTestCase(BaseModel):
     expected_response_contains: List[str] = Field(
         ..., description="期望在最终回复中出现的关键词（应反映最新状态）"
     )
-    expected_memory_excludes: Optional[List[str]] = Field(
+    expected_memory_contains: Optional[List[str]] = Field(
         None,
-        description="期望在记忆库中【不】出现的关键词（旧状态必须被覆盖/删除）"
+        description="期望在记忆库中出现的关键词（更新后的当前状态），验证记忆融合是否成功"
     )
     require_all_contains: bool = Field(
         False, description="回复检查：True=所有词都必须出现；False=至少一个"
     )
-    require_all_excludes: bool = Field(
-        True, description="记忆排除检查：True=所有词都不能出现"
+    require_all_memory: bool = Field(
+        True, description="记忆包含检查：True=所有词都必须出现；False=至少一个"
     )
 
 

@@ -30,13 +30,31 @@ import argparse
 import os
 import sys
 from pathlib import Path
-from typing import List
+from typing import Any, Dict, List
 
 # 确保项目根目录在 sys.path 中，支持直接 python main.py 运行
 sys.path.insert(0, str(Path(__file__).parent))
 
 from memtest import TestRunner, load_dataset
 from memtest.models import AnyTestCase, EvalMethod, TestCaseResult
+
+
+# ---------------------------------------------------------------------------
+# 加载 config.yaml（可选，不存在或解析失败时静默跳过）
+# ---------------------------------------------------------------------------
+
+def load_config() -> Dict[str, Any]:
+    """尝试加载与 main.py 同目录的 config.yaml，返回解析后的字典。"""
+    config_path = Path(__file__).parent / "config.yaml"
+    if not config_path.exists():
+        return {}
+    try:
+        import yaml  # type: ignore
+        with open(config_path, encoding="utf-8") as f:
+            data = yaml.safe_load(f)
+        return data if isinstance(data, dict) else {}
+    except Exception:
+        return {}
 
 
 # ---------------------------------------------------------------------------
@@ -178,36 +196,56 @@ def collect_dataset_files(path_str: str) -> List[Path]:
 
 def main() -> None:
     args = parse_args()
+    cfg = load_config()
+    cfg_llm: Dict[str, Any] = cfg.get("llm_judge", {}) or {}
+    cfg_agent: Dict[str, Any] = cfg.get("agent", {}) or {}
+    cfg_eval: Dict[str, Any] = cfg.get("eval", {}) or {}
 
-    # ── 确定评估方法 ──
-    eval_method = (
-        EvalMethod.LLM_JUDGE if args.eval_method == "llm_judge"
-        else EvalMethod.EXACT
-    )
+    # ── 确定评估方法（命令行 > config）──
+    if args.eval_method == "exact" and cfg_eval.get("method") == "llm_judge":
+        eval_method = EvalMethod.LLM_JUDGE
+    else:
+        eval_method = (
+            EvalMethod.LLM_JUDGE if args.eval_method == "llm_judge"
+            else EvalMethod.EXACT
+        )
 
-    # ── LLM Judge 模式前置检查 ──
+    # ── LLM Judge 模式前置检查（命令行 > 环境变量 > config）──
     api_key: str | None = None
     if eval_method == EvalMethod.LLM_JUDGE:
-        api_key = args.llm_api_key or os.environ.get("OPENAI_API_KEY")
+        api_key = (
+            args.llm_api_key
+            or os.environ.get("OPENAI_API_KEY")
+            or cfg_llm.get("api_key")
+        )
         if not api_key:
             print(
                 "[错误] 使用 LLM Judge 模式需要提供 OpenAI API Key。\n"
                 "       请通过 --llm-api-key 参数传入，"
-                "或设置环境变量 OPENAI_API_KEY。",
+                "或设置环境变量 OPENAI_API_KEY，"
+                "或在 config.yaml 的 llm_judge.api_key 中配置。",
                 file=sys.stderr,
             )
             sys.exit(1)
+
+    # ── 合并其他 LLM 配置（命令行优先，其次 config）──
+    llm_model = args.llm_model if args.llm_model != "gpt-4o-mini" else (
+        cfg_llm.get("model") or args.llm_model
+    )
+    llm_base_url = args.llm_base_url or cfg_llm.get("base_url")
 
     # ── 初始化 Runner ──
     try:
         runner = TestRunner(
             agent_url=args.url,
             eval_method=eval_method,
-            llm_model=args.llm_model,
+            llm_model=llm_model,
             llm_api_key=api_key,
-            llm_base_url=args.llm_base_url,
-            timeout=args.timeout,
-            max_retries=args.retries,
+            llm_base_url=llm_base_url,
+            timeout=args.timeout or cfg_agent.get("timeout", 30),
+            max_retries=args.retries if args.retries != 3 else (
+                cfg_agent.get("max_retries") or args.retries
+            ),
             verbose=args.verbose,
         )
     except (ValueError, ImportError) as exc:

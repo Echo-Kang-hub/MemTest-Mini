@@ -24,14 +24,22 @@ python agent_api/example_agent.py
 ### 3. 运行测试
 
 ```bash
-# 精确匹配模式（无需 API Key）
-python main.py --url http://localhost:8000 --dataset datasets/
+# 精确匹配模式（无需 API Key），同时导出 Markdown 报告
+python main.py --url http://localhost:8000 --dataset datasets/ \
+               --report reports/report.md
 
 # LLM Judge 模式（语义评估，需要 OpenAI API Key）
 export OPENAI_API_KEY="sk-..."
 python main.py --url http://localhost:8000 --dataset datasets/ \
                --eval llm_judge --report reports/report.md
 ```
+
+> **⚠️ 本地 LLM 超时提示**：如果你的 Agent 使用了本地 LLM（响应较慢），
+> 默认的 30s 超时会导致大量请求失败。建议加上以下参数：
+> ```bash
+> python main.py --url http://localhost:8000 --dataset datasets/ \
+>                --timeout 120 --retries 1 --report reports/report.md
+> ```
 
 ---
 
@@ -50,12 +58,50 @@ MemTest-Mini/
 ├── datasets/
 │   ├── extraction_tests.json # 记忆提取测试用例
 │   ├── retrieval_tests.json  # 记忆检索测试用例
-│   └── update_tests.json     # 记忆更新/冲突解决测试用例
+│   ├── update_tests.json     # 记忆更新/冲突解决测试用例
+│   └── adapters/             # 外部数据集适配器
+│       ├── base.py           # 适配器抽象基类
+│       ├── longmemeval.py    # LongMemEval 数据集适配器
+│       ├── locomo.py         # LoCoMo 数据集适配器
+│       └── convert_cli.py    # 格式转换 CLI 工具
+├── reports/                  # 测试报告输出目录（.gitignore 已忽略）
 ├── main.py                   # CLI 入口
 ├── requirements.txt
 ├── config.example.yaml       # 配置模板（复制为 config.yaml 使用）
 └── .gitignore
 ```
+
+---
+
+## 接入外部数据集（LongMemEval / LoCoMo）
+
+框架提供了格式转换 CLI 工具，可将主流记忆评测数据集转为 MemTest-Mini 格式后直接运行：
+
+```bash
+# 1. 下载数据集后，使用适配器转换
+python datasets/adapters/convert_cli.py \
+    --adapter longmemeval \
+    --input   /path/to/longmemeval_data.jsonl \
+    --output  datasets/longmemeval_retrieval.json \
+    --max-cases 100          # 可选：只取前100条用于快速验证
+
+python datasets/adapters/convert_cli.py \
+    --adapter locomo \
+    --input   /path/to/locomo.json \
+    --output  datasets/locomo_retrieval.json \
+    --locomo-qa-types single-hop multi-hop   # 可选：过滤 QA 类型
+
+# 2. 直接用转换后的文件运行测试
+python main.py --url http://localhost:8000 \
+               --dataset datasets/longmemeval_retrieval.json \
+               --timeout 120 --retries 1 \
+               --report reports/longmemeval_report.md
+```
+
+| 适配器 | 数据集 | 获取地址 |
+|--------|--------|----------|
+| `longmemeval` | LongMemEval | https://github.com/xiaowu0162/LongMemEval |
+| `locomo` | LoCoMo | https://github.com/snap-research/locomo |
 
 ---
 
@@ -93,8 +139,22 @@ MemTest-Mini/
 python main.py --url http://localhost:8000 --dataset datasets/ \
                --eval llm_judge \
                --llm-base-url https://api.deepseek.com/v1 \
-               --llm-model deepseek-chat
+               --llm-model deepseek-chat \
+               --report reports/report.md
 ```
+
+---
+
+## 关于线上平台化
+
+当前的架构设计已经为线上扩展做好了准备：
+
+- **调度层**：`TestRunner` 是无状态的，天然适合包装成 `Celery` 异步任务
+- **接口层**：`AgentClient` 目前调用本地 Agent，将 URL 注册化后即可支持多用户提交
+- **报告层**：`Reporter` 可输出 JSON，交由前端（React/Vue）渲染为可视化仪表盘
+- **数据层**：测试用例 JSON 文件可存入数据库，支持数据集管理、检索与复用
+
+典型扩展架构：`FastAPI（Web API）+ Celery + Redis（任务队列）+ PostgreSQL（测试记录）+ React（前端）`
 
 ---
 

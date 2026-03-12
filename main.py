@@ -272,8 +272,16 @@ def main() -> None:
         print("[警告] 没有运行任何测试用例，请检查数据集文件。")
         sys.exit(0)
 
+    # ── 为报告路径插入时间戳（避免多次运行互相覆盖）──
+    report_path: str | None = args.report
+    if report_path:
+        from datetime import datetime
+        ts = datetime.now().strftime("%Y%m%d_%H%M%S")
+        p = Path(report_path)
+        report_path = str(p.parent / f"{p.stem}_{ts}{p.suffix}")
+
     # ── 生成报告 ──
-    runner.report(all_results, markdown_output=args.report)
+    runner.report(all_results, markdown_output=report_path)
 
     # ── 退出码：全部通过返回 0，否则返回 1（方便 CI/CD 集成）──
     total_passed = sum(1 for r in all_results if r.overall_status.value == "PASS")

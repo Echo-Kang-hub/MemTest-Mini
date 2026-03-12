@@ -138,9 +138,9 @@ def parse_args() -> argparse.Namespace:
     http_group.add_argument(
         "--timeout",
         type=float,
-        default=30.0,
+        default=120.0,
         metavar="SECONDS",
-        help="单次 HTTP 请求超时时间（秒，默认: 30）",
+        help="单次 HTTP 请求超时时间（秒，默认: 120）",
     )
     http_group.add_argument(
         "--retries",
@@ -233,6 +233,9 @@ def main() -> None:
         cfg_llm.get("model") or args.llm_model
     )
     llm_base_url = args.llm_base_url or cfg_llm.get("base_url")
+    llm_temperature: float | None = (
+        cfg_llm.get("temperature") if cfg_llm.get("temperature") is not None else None
+    )
 
     # ── 初始化 Runner ──
     try:
@@ -242,6 +245,7 @@ def main() -> None:
             llm_model=llm_model,
             llm_api_key=api_key,
             llm_base_url=llm_base_url,
+            llm_temperature=llm_temperature,
             timeout=args.timeout or cfg_agent.get("timeout", 30),
             max_retries=args.retries if args.retries != 3 else (
                 cfg_agent.get("max_retries") or args.retries

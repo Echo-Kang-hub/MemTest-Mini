@@ -117,6 +117,7 @@ class TestRunner:
         llm_model: str = "gpt-4o-mini",
         llm_api_key: Optional[str] = None,
         llm_base_url: Optional[str] = None,
+        llm_temperature: Optional[float] = None,
         # HTTP 客户端配置
         timeout: float = 30.0,
         max_retries: int = 3,
@@ -160,6 +161,7 @@ class TestRunner:
                 model=llm_model,
                 api_key=llm_api_key,
                 base_url=llm_base_url,
+                temperature=llm_temperature,
             )
 
     # ------------------------------------------------------------------

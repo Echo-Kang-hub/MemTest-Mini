@@ -2,71 +2,77 @@
   {
     "test_id": "upd_001",
     "type": "update",
-    "description": "job update",
+    "description": "中文更新用例_upd_001",
     "turns": [
       {
-        "content": "I am currently a programmer.",
-        "role": "user"
+        "role": "user",
+        "content": "我之前在厦门做产品经理。"
       },
       {
-        "content": "I changed my career and now I am a photographer.",
-        "role": "user"
+        "role": "user",
+        "content": "最近我搬到了上海，并转行做设计师。"
       }
     ],
-    "query": "What is my current job?",
+    "query": "我现在在哪个城市、做什么工作？",
     "expected_response_contains": [
-      "photographer"
+      "上海",
+      "设计师"
     ],
     "expected_memory_excludes": [
-      "programmer"
+      "厦门",
+      "产品经理"
     ],
-    "require_all_contains": true,
+    "require_all_contains": false,
     "require_all_excludes": true
   },
   {
     "test_id": "upd_002",
     "type": "update",
-    "description": "city update",
+    "description": "中文更新用例_upd_002",
     "turns": [
       {
-        "content": "I live in Shanghai.",
-        "role": "user"
+        "role": "user",
+        "content": "我之前在天津做运营。"
       },
       {
-        "content": "I moved to Beijing.",
-        "role": "user"
+        "role": "user",
+        "content": "最近我搬到了深圳，并转行做咨询顾问。"
       }
     ],
-    "query": "Where do I live now?",
+    "query": "我现在在哪个城市、做什么工作？",
     "expected_response_contains": [
-      "Beijing"
+      "深圳",
+      "咨询顾问"
     ],
     "expected_memory_excludes": [
-      "Shanghai"
+      "天津",
+      "运营"
     ],
-    "require_all_contains": true,
+    "require_all_contains": false,
     "require_all_excludes": true
   },
   {
     "test_id": "upd_003",
     "type": "update",
-    "description": "diet update",
+    "description": "中文更新用例_upd_003",
     "turns": [
       {
-        "content": "I am vegetarian.",
-        "role": "user"
+        "role": "user",
+        "content": "我之前在宁波做教师。"
       },
       {
-        "content": "I now eat meat again.",
-        "role": "user"
+        "role": "user",
+        "content": "最近我搬到了杭州，并转行做自由译者。"
       }
     ],
-    "query": "What is my current diet?",
+    "query": "我现在在哪个城市、做什么工作？",
     "expected_response_contains": [
-      "eat meat"
+      "杭州",
+      "自由译者"
     ],
     "expected_memory_excludes": [
-      "vegetarian"
+      "宁波",
+      "教师"
     ],
     "require_all_contains": false,
     "require_all_excludes": true
@@ -74,48 +80,51 @@
   {
     "test_id": "upd_004",
     "type": "update",
-    "description": "allergy update",
+    "description": "中文更新用例_upd_004",
     "turns": [
       {
-        "content": "I am allergic to shrimp.",
-        "role": "user"
+        "role": "user",
+        "content": "我之前在福州做记者。"
       },
       {
-        "content": "I am no longer allergic to shrimp, but allergic to mango now.",
-        "role": "user"
+        "role": "user",
+        "content": "最近我搬到了成都，并转行做数据科学家。"
       }
     ],
-    "query": "What am I currently allergic to?",
+    "query": "我现在在哪个城市、做什么工作？",
     "expected_response_contains": [
-      "mango"
+      "成都",
+      "数据科学家"
     ],
     "expected_memory_excludes": [
-      "shrimp"
+      "福州",
+      "记者"
     ],
-    "require_all_contains": true,
+    "require_all_contains": false,
     "require_all_excludes": true
   },
   {
     "test_id": "upd_005",
     "type": "update",
-    "description": "pet update",
+    "description": "中文更新用例_upd_005",
     "turns": [
       {
-        "content": "I had a dog named Dahuang.",
-        "role": "user"
+        "role": "user",
+        "content": "我之前在广州做程序员。"
       },
       {
-        "content": "Now I have a ragdoll cat named Snowball.",
-        "role": "user"
+        "role": "user",
+        "content": "最近我搬到了北京，并转行做摄影师。"
       }
     ],
-    "query": "What pet do I have now?",
+    "query": "我现在在哪个城市、做什么工作？",
     "expected_response_contains": [
-      "Snowball",
-      "cat"
+      "北京",
+      "摄影师"
     ],
     "expected_memory_excludes": [
-      "Dahuang"
+      "广州",
+      "程序员"
     ],
     "require_all_contains": false,
     "require_all_excludes": true
@@ -123,25 +132,25 @@
   {
     "test_id": "upd_006",
     "type": "update",
-    "description": "batch update case_006",
+    "description": "中文更新用例_upd_006",
     "turns": [
       {
-        "content": "I previously worked as a product manager in Xiamen.",
-        "role": "user"
+        "role": "user",
+        "content": "我之前在厦门做产品经理。"
       },
       {
-        "content": "Recently I moved to Shanghai and changed career to designer.",
-        "role": "user"
+        "role": "user",
+        "content": "最近我搬到了上海，并转行做设计师。"
       }
     ],
-    "query": "Which city am I in now and what is my job now?",
+    "query": "我现在在哪个城市、做什么工作？",
     "expected_response_contains": [
-      "Shanghai",
-      "designer"
+      "上海",
+      "设计师"
     ],
     "expected_memory_excludes": [
-      "Xiamen",
-      "product manager"
+      "厦门",
+      "产品经理"
     ],
     "require_all_contains": false,
     "require_all_excludes": true
@@ -149,25 +158,25 @@
   {
     "test_id": "upd_007",
     "type": "update",
-    "description": "batch update case_007",
+    "description": "中文更新用例_upd_007",
     "turns": [
       {
-        "content": "I previously worked as a operations in Tianjin.",
-        "role": "user"
+        "role": "user",
+        "content": "我之前在天津做运营。"
       },
       {
-        "content": "Recently I moved to Shenzhen and changed career to consultant.",
-        "role": "user"
+        "role": "user",
+        "content": "最近我搬到了深圳，并转行做咨询顾问。"
       }
     ],
-    "query": "Which city am I in now and what is my job now?",
+    "query": "我现在在哪个城市、做什么工作？",
     "expected_response_contains": [
-      "Shenzhen",
-      "consultant"
+      "深圳",
+      "咨询顾问"
     ],
     "expected_memory_excludes": [
-      "Tianjin",
-      "operations"
+      "天津",
+      "运营"
     ],
     "require_all_contains": false,
     "require_all_excludes": true
@@ -175,25 +184,25 @@
   {
     "test_id": "upd_008",
     "type": "update",
-    "description": "batch update case_008",
+    "description": "中文更新用例_upd_008",
     "turns": [
       {
-        "content": "I previously worked as a teacher in Ningbo.",
-        "role": "user"
+        "role": "user",
+        "content": "我之前在宁波做教师。"
       },
       {
-        "content": "Recently I moved to Hangzhou and changed career to translator.",
-        "role": "user"
+        "role": "user",
+        "content": "最近我搬到了杭州，并转行做自由译者。"
       }
     ],
-    "query": "Which city am I in now and what is my job now?",
+    "query": "我现在在哪个城市、做什么工作？",
     "expected_response_contains": [
-      "Hangzhou",
-      "translator"
+      "杭州",
+      "自由译者"
     ],
     "expected_memory_excludes": [
-      "Ningbo",
-      "teacher"
+      "宁波",
+      "教师"
     ],
     "require_all_contains": false,
     "require_all_excludes": true
@@ -201,25 +210,25 @@
   {
     "test_id": "upd_009",
     "type": "update",
-    "description": "batch update case_009",
+    "description": "中文更新用例_upd_009",
     "turns": [
       {
-        "content": "I previously worked as a reporter in Fuzhou.",
-        "role": "user"
+        "role": "user",
+        "content": "我之前在福州做记者。"
       },
       {
-        "content": "Recently I moved to Chengdu and changed career to data scientist.",
-        "role": "user"
+        "role": "user",
+        "content": "最近我搬到了成都，并转行做数据科学家。"
       }
     ],
-    "query": "Which city am I in now and what is my job now?",
+    "query": "我现在在哪个城市、做什么工作？",
     "expected_response_contains": [
-      "Chengdu",
-      "data scientist"
+      "成都",
+      "数据科学家"
     ],
     "expected_memory_excludes": [
-      "Fuzhou",
-      "reporter"
+      "福州",
+      "记者"
     ],
     "require_all_contains": false,
     "require_all_excludes": true
@@ -227,25 +236,25 @@
   {
     "test_id": "upd_010",
     "type": "update",
-    "description": "batch update case_010",
+    "description": "中文更新用例_upd_010",
     "turns": [
       {
-        "content": "I previously worked as a programmer in Guangzhou.",
-        "role": "user"
+        "role": "user",
+        "content": "我之前在广州做程序员。"
       },
       {
-        "content": "Recently I moved to Beijing and changed career to photographer.",
-        "role": "user"
+        "role": "user",
+        "content": "最近我搬到了北京，并转行做摄影师。"
       }
     ],
-    "query": "Which city am I in now and what is my job now?",
+    "query": "我现在在哪个城市、做什么工作？",
     "expected_response_contains": [
-      "Beijing",
-      "photographer"
+      "北京",
+      "摄影师"
     ],
     "expected_memory_excludes": [
-      "Guangzhou",
-      "programmer"
+      "广州",
+      "程序员"
     ],
     "require_all_contains": false,
     "require_all_excludes": true
@@ -253,25 +262,25 @@
   {
     "test_id": "upd_011",
     "type": "update",
-    "description": "batch update case_011",
+    "description": "中文更新用例_upd_011",
     "turns": [
       {
-        "content": "I previously worked as a product manager in Xiamen.",
-        "role": "user"
+        "role": "user",
+        "content": "我之前在厦门做产品经理。"
       },
       {
-        "content": "Recently I moved to Shanghai and changed career to designer.",
-        "role": "user"
+        "role": "user",
+        "content": "最近我搬到了上海，并转行做设计师。"
       }
     ],
-    "query": "Which city am I in now and what is my job now?",
+    "query": "我现在在哪个城市、做什么工作？",
     "expected_response_contains": [
-      "Shanghai",
-      "designer"
+      "上海",
+      "设计师"
     ],
     "expected_memory_excludes": [
-      "Xiamen",
-      "product manager"
+      "厦门",
+      "产品经理"
     ],
     "require_all_contains": false,
     "require_all_excludes": true
@@ -279,25 +288,25 @@
   {
     "test_id": "upd_012",
     "type": "update",
-    "description": "batch update case_012",
+    "description": "中文更新用例_upd_012",
     "turns": [
       {
-        "content": "I previously worked as a operations in Tianjin.",
-        "role": "user"
+        "role": "user",
+        "content": "我之前在天津做运营。"
       },
       {
-        "content": "Recently I moved to Shenzhen and changed career to consultant.",
-        "role": "user"
+        "role": "user",
+        "content": "最近我搬到了深圳，并转行做咨询顾问。"
       }
     ],
-    "query": "Which city am I in now and what is my job now?",
+    "query": "我现在在哪个城市、做什么工作？",
     "expected_response_contains": [
-      "Shenzhen",
-      "consultant"
+      "深圳",
+      "咨询顾问"
     ],
     "expected_memory_excludes": [
-      "Tianjin",
-      "operations"
+      "天津",
+      "运营"
     ],
     "require_all_contains": false,
     "require_all_excludes": true
@@ -305,25 +314,25 @@
   {
     "test_id": "upd_013",
     "type": "update",
-    "description": "batch update case_013",
+    "description": "中文更新用例_upd_013",
     "turns": [
       {
-        "content": "I previously worked as a teacher in Ningbo.",
-        "role": "user"
+        "role": "user",
+        "content": "我之前在宁波做教师。"
       },
       {
-        "content": "Recently I moved to Hangzhou and changed career to translator.",
-        "role": "user"
+        "role": "user",
+        "content": "最近我搬到了杭州，并转行做自由译者。"
       }
     ],
-    "query": "Which city am I in now and what is my job now?",
+    "query": "我现在在哪个城市、做什么工作？",
     "expected_response_contains": [
-      "Hangzhou",
-      "translator"
+      "杭州",
+      "自由译者"
     ],
     "expected_memory_excludes": [
-      "Ningbo",
-      "teacher"
+      "宁波",
+      "教师"
     ],
     "require_all_contains": false,
     "require_all_excludes": true
@@ -331,25 +340,25 @@
   {
     "test_id": "upd_014",
     "type": "update",
-    "description": "batch update case_014",
+    "description": "中文更新用例_upd_014",
     "turns": [
       {
-        "content": "I previously worked as a reporter in Fuzhou.",
-        "role": "user"
+        "role": "user",
+        "content": "我之前在福州做记者。"
       },
       {
-        "content": "Recently I moved to Chengdu and changed career to data scientist.",
-        "role": "user"
+        "role": "user",
+        "content": "最近我搬到了成都，并转行做数据科学家。"
       }
     ],
-    "query": "Which city am I in now and what is my job now?",
+    "query": "我现在在哪个城市、做什么工作？",
     "expected_response_contains": [
-      "Chengdu",
-      "data scientist"
+      "成都",
+      "数据科学家"
     ],
     "expected_memory_excludes": [
-      "Fuzhou",
-      "reporter"
+      "福州",
+      "记者"
     ],
     "require_all_contains": false,
     "require_all_excludes": true
@@ -357,25 +366,25 @@
   {
     "test_id": "upd_015",
     "type": "update",
-    "description": "batch update case_015",
+    "description": "中文更新用例_upd_015",
     "turns": [
       {
-        "content": "I previously worked as a programmer in Guangzhou.",
-        "role": "user"
+        "role": "user",
+        "content": "我之前在广州做程序员。"
       },
       {
-        "content": "Recently I moved to Beijing and changed career to photographer.",
-        "role": "user"
+        "role": "user",
+        "content": "最近我搬到了北京，并转行做摄影师。"
       }
     ],
-    "query": "Which city am I in now and what is my job now?",
+    "query": "我现在在哪个城市、做什么工作？",
     "expected_response_contains": [
-      "Beijing",
-      "photographer"
+      "北京",
+      "摄影师"
     ],
     "expected_memory_excludes": [
-      "Guangzhou",
-      "programmer"
+      "广州",
+      "程序员"
     ],
     "require_all_contains": false,
     "require_all_excludes": true
@@ -383,18 +392,18 @@
   {
     "test_id": "upd_016",
     "type": "update",
-    "description": "batch update case_016",
+    "description": "English update case_upd_016",
     "turns": [
       {
-        "content": "I previously worked as a product manager in Xiamen.",
-        "role": "user"
+        "role": "user",
+        "content": "I previously worked as a product manager in Xiamen."
       },
       {
-        "content": "Recently I moved to Shanghai and changed career to designer.",
-        "role": "user"
+        "role": "user",
+        "content": "Recently I moved to Shanghai and changed my job to designer."
       }
     ],
-    "query": "Which city am I in now and what is my job now?",
+    "query": "Which city am I in now and what is my current job?",
     "expected_response_contains": [
       "Shanghai",
       "designer"
@@ -409,18 +418,18 @@
   {
     "test_id": "upd_017",
     "type": "update",
-    "description": "batch update case_017",
+    "description": "English update case_upd_017",
     "turns": [
       {
-        "content": "I previously worked as a operations in Tianjin.",
-        "role": "user"
+        "role": "user",
+        "content": "I previously worked as a operations in Tianjin."
       },
       {
-        "content": "Recently I moved to Shenzhen and changed career to consultant.",
-        "role": "user"
+        "role": "user",
+        "content": "Recently I moved to Shenzhen and changed my job to consultant."
       }
     ],
-    "query": "Which city am I in now and what is my job now?",
+    "query": "Which city am I in now and what is my current job?",
     "expected_response_contains": [
       "Shenzhen",
       "consultant"
@@ -435,18 +444,18 @@
   {
     "test_id": "upd_018",
     "type": "update",
-    "description": "batch update case_018",
+    "description": "English update case_upd_018",
     "turns": [
       {
-        "content": "I previously worked as a teacher in Ningbo.",
-        "role": "user"
+        "role": "user",
+        "content": "I previously worked as a teacher in Ningbo."
       },
       {
-        "content": "Recently I moved to Hangzhou and changed career to translator.",
-        "role": "user"
+        "role": "user",
+        "content": "Recently I moved to Hangzhou and changed my job to translator."
       }
     ],
-    "query": "Which city am I in now and what is my job now?",
+    "query": "Which city am I in now and what is my current job?",
     "expected_response_contains": [
       "Hangzhou",
       "translator"
@@ -461,18 +470,18 @@
   {
     "test_id": "upd_019",
     "type": "update",
-    "description": "batch update case_019",
+    "description": "English update case_upd_019",
     "turns": [
       {
-        "content": "I previously worked as a reporter in Fuzhou.",
-        "role": "user"
+        "role": "user",
+        "content": "I previously worked as a reporter in Fuzhou."
       },
       {
-        "content": "Recently I moved to Chengdu and changed career to data scientist.",
-        "role": "user"
+        "role": "user",
+        "content": "Recently I moved to Chengdu and changed my job to data scientist."
       }
     ],
-    "query": "Which city am I in now and what is my job now?",
+    "query": "Which city am I in now and what is my current job?",
     "expected_response_contains": [
       "Chengdu",
       "data scientist"
@@ -487,18 +496,18 @@
   {
     "test_id": "upd_020",
     "type": "update",
-    "description": "batch update case_020",
+    "description": "English update case_upd_020",
     "turns": [
       {
-        "content": "I previously worked as a programmer in Guangzhou.",
-        "role": "user"
+        "role": "user",
+        "content": "I previously worked as a programmer in Guangzhou."
       },
       {
-        "content": "Recently I moved to Beijing and changed career to photographer.",
-        "role": "user"
+        "role": "user",
+        "content": "Recently I moved to Beijing and changed my job to photographer."
       }
     ],
-    "query": "Which city am I in now and what is my job now?",
+    "query": "Which city am I in now and what is my current job?",
     "expected_response_contains": [
       "Beijing",
       "photographer"
@@ -513,18 +522,18 @@
   {
     "test_id": "upd_021",
     "type": "update",
-    "description": "batch update case_021",
+    "description": "English update case_upd_021",
     "turns": [
       {
-        "content": "I previously worked as a product manager in Xiamen.",
-        "role": "user"
+        "role": "user",
+        "content": "I previously worked as a product manager in Xiamen."
       },
       {
-        "content": "Recently I moved to Shanghai and changed career to designer.",
-        "role": "user"
+        "role": "user",
+        "content": "Recently I moved to Shanghai and changed my job to designer."
       }
     ],
-    "query": "Which city am I in now and what is my job now?",
+    "query": "Which city am I in now and what is my current job?",
     "expected_response_contains": [
       "Shanghai",
       "designer"
@@ -539,18 +548,18 @@
   {
     "test_id": "upd_022",
     "type": "update",
-    "description": "batch update case_022",
+    "description": "English update case_upd_022",
     "turns": [
       {
-        "content": "I previously worked as a operations in Tianjin.",
-        "role": "user"
+        "role": "user",
+        "content": "I previously worked as a operations in Tianjin."
       },
       {
-        "content": "Recently I moved to Shenzhen and changed career to consultant.",
-        "role": "user"
+        "role": "user",
+        "content": "Recently I moved to Shenzhen and changed my job to consultant."
       }
     ],
-    "query": "Which city am I in now and what is my job now?",
+    "query": "Which city am I in now and what is my current job?",
     "expected_response_contains": [
       "Shenzhen",
       "consultant"
@@ -565,18 +574,18 @@
   {
     "test_id": "upd_023",
     "type": "update",
-    "description": "batch update case_023",
+    "description": "English update case_upd_023",
     "turns": [
       {
-        "content": "I previously worked as a teacher in Ningbo.",
-        "role": "user"
+        "role": "user",
+        "content": "I previously worked as a teacher in Ningbo."
       },
       {
-        "content": "Recently I moved to Hangzhou and changed career to translator.",
-        "role": "user"
+        "role": "user",
+        "content": "Recently I moved to Hangzhou and changed my job to translator."
       }
     ],
-    "query": "Which city am I in now and what is my job now?",
+    "query": "Which city am I in now and what is my current job?",
     "expected_response_contains": [
       "Hangzhou",
       "translator"
@@ -591,18 +600,18 @@
   {
     "test_id": "upd_024",
     "type": "update",
-    "description": "batch update case_024",
+    "description": "English update case_upd_024",
     "turns": [
       {
-        "content": "I previously worked as a reporter in Fuzhou.",
-        "role": "user"
+        "role": "user",
+        "content": "I previously worked as a reporter in Fuzhou."
       },
       {
-        "content": "Recently I moved to Chengdu and changed career to data scientist.",
-        "role": "user"
+        "role": "user",
+        "content": "Recently I moved to Chengdu and changed my job to data scientist."
       }
     ],
-    "query": "Which city am I in now and what is my job now?",
+    "query": "Which city am I in now and what is my current job?",
     "expected_response_contains": [
       "Chengdu",
       "data scientist"
@@ -617,18 +626,18 @@
   {
     "test_id": "upd_025",
     "type": "update",
-    "description": "batch update case_025",
+    "description": "English update case_upd_025",
     "turns": [
       {
-        "content": "I previously worked as a programmer in Guangzhou.",
-        "role": "user"
+        "role": "user",
+        "content": "I previously worked as a programmer in Guangzhou."
       },
       {
-        "content": "Recently I moved to Beijing and changed career to photographer.",
-        "role": "user"
+        "role": "user",
+        "content": "Recently I moved to Beijing and changed my job to photographer."
       }
     ],
-    "query": "Which city am I in now and what is my job now?",
+    "query": "Which city am I in now and what is my current job?",
     "expected_response_contains": [
       "Beijing",
       "photographer"
@@ -643,18 +652,18 @@
   {
     "test_id": "upd_026",
     "type": "update",
-    "description": "batch update case_026",
+    "description": "English update case_upd_026",
     "turns": [
       {
-        "content": "I previously worked as a product manager in Xiamen.",
-        "role": "user"
+        "role": "user",
+        "content": "I previously worked as a product manager in Xiamen."
       },
       {
-        "content": "Recently I moved to Shanghai and changed career to designer.",
-        "role": "user"
+        "role": "user",
+        "content": "Recently I moved to Shanghai and changed my job to designer."
       }
     ],
-    "query": "Which city am I in now and what is my job now?",
+    "query": "Which city am I in now and what is my current job?",
     "expected_response_contains": [
       "Shanghai",
       "designer"
@@ -669,18 +678,18 @@
   {
     "test_id": "upd_027",
     "type": "update",
-    "description": "batch update case_027",
+    "description": "English update case_upd_027",
     "turns": [
       {
-        "content": "I previously worked as a operations in Tianjin.",
-        "role": "user"
+        "role": "user",
+        "content": "I previously worked as a operations in Tianjin."
       },
       {
-        "content": "Recently I moved to Shenzhen and changed career to consultant.",
-        "role": "user"
+        "role": "user",
+        "content": "Recently I moved to Shenzhen and changed my job to consultant."
       }
     ],
-    "query": "Which city am I in now and what is my job now?",
+    "query": "Which city am I in now and what is my current job?",
     "expected_response_contains": [
       "Shenzhen",
       "consultant"
@@ -695,18 +704,18 @@
   {
     "test_id": "upd_028",
     "type": "update",
-    "description": "batch update case_028",
+    "description": "English update case_upd_028",
     "turns": [
       {
-        "content": "I previously worked as a teacher in Ningbo.",
-        "role": "user"
+        "role": "user",
+        "content": "I previously worked as a teacher in Ningbo."
       },
       {
-        "content": "Recently I moved to Hangzhou and changed career to translator.",
-        "role": "user"
+        "role": "user",
+        "content": "Recently I moved to Hangzhou and changed my job to translator."
       }
     ],
-    "query": "Which city am I in now and what is my job now?",
+    "query": "Which city am I in now and what is my current job?",
     "expected_response_contains": [
       "Hangzhou",
       "translator"
@@ -721,18 +730,18 @@
   {
     "test_id": "upd_029",
     "type": "update",
-    "description": "batch update case_029",
+    "description": "English update case_upd_029",
     "turns": [
       {
-        "content": "I previously worked as a reporter in Fuzhou.",
-        "role": "user"
+        "role": "user",
+        "content": "I previously worked as a reporter in Fuzhou."
       },
       {
-        "content": "Recently I moved to Chengdu and changed career to data scientist.",
-        "role": "user"
+        "role": "user",
+        "content": "Recently I moved to Chengdu and changed my job to data scientist."
       }
     ],
-    "query": "Which city am I in now and what is my job now?",
+    "query": "Which city am I in now and what is my current job?",
     "expected_response_contains": [
       "Chengdu",
       "data scientist"
@@ -747,18 +756,18 @@
   {
     "test_id": "upd_030",
     "type": "update",
-    "description": "batch update case_030",
+    "description": "English update case_upd_030",
     "turns": [
       {
-        "content": "I previously worked as a programmer in Guangzhou.",
-        "role": "user"
+        "role": "user",
+        "content": "I previously worked as a programmer in Guangzhou."
       },
       {
-        "content": "Recently I moved to Beijing and changed career to photographer.",
-        "role": "user"
+        "role": "user",
+        "content": "Recently I moved to Beijing and changed my job to photographer."
       }
     ],
-    "query": "Which city am I in now and what is my job now?",
+    "query": "Which city am I in now and what is my current job?",
     "expected_response_contains": [
       "Beijing",
       "photographer"

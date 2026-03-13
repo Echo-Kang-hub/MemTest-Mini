@@ -230,13 +230,20 @@ class TestRunner:
         mem_resp: MemoryResponse = self.client.get_memory(user_id=user_id)
         self._log(f"记忆库内容: {str(mem_resp.memories)[:120]}...")
 
-        # 3. 检查记忆库是否包含期望关键词
-        check = self.exact_eval.check_contains(
-            content=mem_resp.memories,
-            expected_items=tc.expected_memory_contains,
-            require_all=tc.require_all,
-            check_name="memory_contains_check",
-        )
+        # 3. 检查记忆库是否包含期望信息
+        if self.eval_method == EvalMethod.LLM_JUDGE and self.llm_eval:
+            check = self.llm_eval.judge_memory(
+                memory_snapshot=mem_resp.memories,
+                expected_keywords=tc.expected_memory_contains,
+                check_name="memory_semantic_check",
+            )
+        else:
+            check = self.exact_eval.check_contains(
+                content=mem_resp.memories,
+                expected_items=tc.expected_memory_contains,
+                require_all=tc.require_all,
+                check_name="memory_contains_check",
+            )
 
         return TestCaseResult(
             test_id=tc.test_id,

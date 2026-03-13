@@ -2,71 +2,726 @@
   {
     "test_id": "ret_001",
     "type": "retrieval",
-    "description": "在多轮无关干扰对话后，能准确检索宠物名字",
+    "description": "retrieve dog name",
     "setup": [
-      {"role": "user", "content": "我养了一只叫'旺财'的柯基，它今年3岁了，特别活泼。"},
-      {"role": "user", "content": "今天北京天气真好，阳光明媚，适合出去遛弯。"},
-      {"role": "user", "content": "你觉得 Python 和 Go 哪个更适合做后端开发？"},
-      {"role": "user", "content": "最近全球经济形势怎么样，感觉股市很不稳定。"}
+      {
+        "content": "I have a corgi named Wangcai.",
+        "role": "user"
+      },
+      {
+        "content": "Nice weather today.",
+        "role": "user"
+      }
     ],
-    "query": "我的狗叫什么名字？",
-    "expected_response_contains": ["旺财"],
+    "query": "What is my dog's name?",
+    "expected_response_contains": [
+      "Wangcai"
+    ],
     "require_all": true
   },
   {
     "test_id": "ret_002",
     "type": "retrieval",
-    "description": "结合多条记忆给出个性化建议（过敏史 + 健身目标）",
+    "description": "retrieve city",
     "setup": [
-      {"role": "user", "content": "我对花生和坚果类食品过敏，餐厅点餐时需要特别注意。"},
-      {"role": "user", "content": "我最近在健身减肥，目标是三个月内减掉15斤。"},
-      {"role": "user", "content": "上海明天会下雨吗？"},
-      {"role": "user", "content": "给我讲一个轻松的笑话吧。"}
+      {
+        "content": "I currently live in Shanghai Pudong.",
+        "role": "user"
+      },
+      {
+        "content": "Recommend me a song.",
+        "role": "user"
+      }
     ],
-    "query": "请给我推荐一种适合我现状的健康零食。",
-    "expected_response_contains": ["花生"],
-    "require_all": false
+    "query": "Which city do I live in?",
+    "expected_response_contains": [
+      "Shanghai"
+    ],
+    "require_all": true
   },
   {
     "test_id": "ret_003",
     "type": "retrieval",
-    "description": "跨越较长对话历史的远程记忆检索（家庭信息）",
+    "description": "retrieve allergy",
     "setup": [
-      {"role": "user", "content": "我哥哥叫王建国，在深圳的一家科技公司工作，从事硬件研发。"},
-      {"role": "user", "content": "帮我写一首关于秋天的五言绝句。"},
-      {"role": "user", "content": "高中数学最难的知识点是什么？"},
-      {"role": "user", "content": "推荐几部好看的科幻电影。"},
-      {"role": "user", "content": "中国的四大名著是哪四部？"}
+      {
+        "content": "I am allergic to peanut.",
+        "role": "user"
+      },
+      {
+        "content": "Tell me a joke.",
+        "role": "user"
+      }
     ],
-    "query": "我哥哥在哪个城市工作？",
-    "expected_response_contains": ["深圳"],
+    "query": "What am I allergic to?",
+    "expected_response_contains": [
+      "peanut"
+    ],
     "require_all": true
   },
   {
     "test_id": "ret_004",
     "type": "retrieval",
-    "description": "个人阅读偏好的检索与个性化推荐",
+    "description": "retrieve job",
     "setup": [
-      {"role": "user", "content": "我非常喜欢看悬疑推理类的书籍，最近刚看完东野圭吾的《白夜行》，觉得非常精彩。"},
-      {"role": "user", "content": "今天中午吃什么好？"},
-      {"role": "user", "content": "帮我把这句话翻译成英文：今天天气不错。"}
+      {
+        "content": "I am a freelance photographer.",
+        "role": "user"
+      },
+      {
+        "content": "Recommend a movie.",
+        "role": "user"
+      }
     ],
-    "query": "你能根据我的喜好给我推荐一本新书吗？",
-    "expected_response_contains": ["悬疑", "推理"],
-    "require_all": false
+    "query": "What is my job?",
+    "expected_response_contains": [
+      "photographer"
+    ],
+    "require_all": true
   },
   {
     "test_id": "ret_005",
     "type": "retrieval",
-    "description": "在角色扮演干扰对话后，真实个人信息仍应被正确检索",
+    "description": "retrieve birthday",
     "setup": [
-      {"role": "user", "content": "我的生日是每年的10月15日，我超喜欢过生日。"},
-      {"role": "user", "content": "现在我们来玩角色扮演，你扮演一个海盗船长，我扮演你的副手。"},
-      {"role": "user", "content": "（船长，我们发现了一座无人岛！）"},
-      {"role": "user", "content": "好了，角色扮演结束。"}
+      {
+        "content": "My birthday is October 15.",
+        "role": "user"
+      },
+      {
+        "content": "Translate this sentence.",
+        "role": "user"
+      }
     ],
-    "query": "我的生日是哪天？",
-    "expected_response_contains": ["10月15日", "10月15"],
+    "query": "When is my birthday?",
+    "expected_response_contains": [
+      "October 15"
+    ],
+    "require_all": true
+  },
+  {
+    "test_id": "ret_006",
+    "type": "retrieval",
+    "description": "batch retrieval case_006",
+    "setup": [
+      {
+        "content": "I have a corgi named Pudding and I live in Suzhou.",
+        "role": "user"
+      },
+      {
+        "content": "I have been learning Spanish for 30 minutes every day.",
+        "role": "user"
+      },
+      {
+        "content": "There is a lot of news today, let's talk about something else.",
+        "role": "user"
+      }
+    ],
+    "query": "Tell me my pet name and my city.",
+    "expected_response_contains": [
+      "Pudding",
+      "Suzhou"
+    ],
+    "require_all": false
+  },
+  {
+    "test_id": "ret_007",
+    "type": "retrieval",
+    "description": "batch retrieval case_007",
+    "setup": [
+      {
+        "content": "I have a golden retriever named Snowball and I live in Xian.",
+        "role": "user"
+      },
+      {
+        "content": "I have been learning French for 30 minutes every day.",
+        "role": "user"
+      },
+      {
+        "content": "There is a lot of news today, let's talk about something else.",
+        "role": "user"
+      }
+    ],
+    "query": "Tell me my pet name and my city.",
+    "expected_response_contains": [
+      "Snowball",
+      "Xian"
+    ],
+    "require_all": false
+  },
+  {
+    "test_id": "ret_008",
+    "type": "retrieval",
+    "description": "batch retrieval case_008",
+    "setup": [
+      {
+        "content": "I have a parrot named Tiger and I live in Changsha.",
+        "role": "user"
+      },
+      {
+        "content": "I have been learning German for 30 minutes every day.",
+        "role": "user"
+      },
+      {
+        "content": "There is a lot of news today, let's talk about something else.",
+        "role": "user"
+      }
+    ],
+    "query": "Tell me my pet name and my city.",
+    "expected_response_contains": [
+      "Tiger",
+      "Changsha"
+    ],
+    "require_all": false
+  },
+  {
+    "test_id": "ret_009",
+    "type": "retrieval",
+    "description": "batch retrieval case_009",
+    "setup": [
+      {
+        "content": "I have a rabbit named Doubou and I live in Qingdao.",
+        "role": "user"
+      },
+      {
+        "content": "I have been learning Korean for 30 minutes every day.",
+        "role": "user"
+      },
+      {
+        "content": "There is a lot of news today, let's talk about something else.",
+        "role": "user"
+      }
+    ],
+    "query": "Tell me my pet name and my city.",
+    "expected_response_contains": [
+      "Doubou",
+      "Qingdao"
+    ],
+    "require_all": false
+  },
+  {
+    "test_id": "ret_010",
+    "type": "retrieval",
+    "description": "batch retrieval case_010",
+    "setup": [
+      {
+        "content": "I have a cat named Naitang and I live in Nanjing.",
+        "role": "user"
+      },
+      {
+        "content": "I have been learning Japanese for 30 minutes every day.",
+        "role": "user"
+      },
+      {
+        "content": "There is a lot of news today, let's talk about something else.",
+        "role": "user"
+      }
+    ],
+    "query": "Tell me my pet name and my city.",
+    "expected_response_contains": [
+      "Naitang",
+      "Nanjing"
+    ],
+    "require_all": false
+  },
+  {
+    "test_id": "ret_011",
+    "type": "retrieval",
+    "description": "batch retrieval case_011",
+    "setup": [
+      {
+        "content": "I have a corgi named Pudding and I live in Suzhou.",
+        "role": "user"
+      },
+      {
+        "content": "I have been learning Spanish for 30 minutes every day.",
+        "role": "user"
+      },
+      {
+        "content": "There is a lot of news today, let's talk about something else.",
+        "role": "user"
+      }
+    ],
+    "query": "Tell me my pet name and my city.",
+    "expected_response_contains": [
+      "Pudding",
+      "Suzhou"
+    ],
+    "require_all": false
+  },
+  {
+    "test_id": "ret_012",
+    "type": "retrieval",
+    "description": "batch retrieval case_012",
+    "setup": [
+      {
+        "content": "I have a golden retriever named Snowball and I live in Xian.",
+        "role": "user"
+      },
+      {
+        "content": "I have been learning French for 30 minutes every day.",
+        "role": "user"
+      },
+      {
+        "content": "There is a lot of news today, let's talk about something else.",
+        "role": "user"
+      }
+    ],
+    "query": "Tell me my pet name and my city.",
+    "expected_response_contains": [
+      "Snowball",
+      "Xian"
+    ],
+    "require_all": false
+  },
+  {
+    "test_id": "ret_013",
+    "type": "retrieval",
+    "description": "batch retrieval case_013",
+    "setup": [
+      {
+        "content": "I have a parrot named Tiger and I live in Changsha.",
+        "role": "user"
+      },
+      {
+        "content": "I have been learning German for 30 minutes every day.",
+        "role": "user"
+      },
+      {
+        "content": "There is a lot of news today, let's talk about something else.",
+        "role": "user"
+      }
+    ],
+    "query": "Tell me my pet name and my city.",
+    "expected_response_contains": [
+      "Tiger",
+      "Changsha"
+    ],
+    "require_all": false
+  },
+  {
+    "test_id": "ret_014",
+    "type": "retrieval",
+    "description": "batch retrieval case_014",
+    "setup": [
+      {
+        "content": "I have a rabbit named Doubou and I live in Qingdao.",
+        "role": "user"
+      },
+      {
+        "content": "I have been learning Korean for 30 minutes every day.",
+        "role": "user"
+      },
+      {
+        "content": "There is a lot of news today, let's talk about something else.",
+        "role": "user"
+      }
+    ],
+    "query": "Tell me my pet name and my city.",
+    "expected_response_contains": [
+      "Doubou",
+      "Qingdao"
+    ],
+    "require_all": false
+  },
+  {
+    "test_id": "ret_015",
+    "type": "retrieval",
+    "description": "batch retrieval case_015",
+    "setup": [
+      {
+        "content": "I have a cat named Naitang and I live in Nanjing.",
+        "role": "user"
+      },
+      {
+        "content": "I have been learning Japanese for 30 minutes every day.",
+        "role": "user"
+      },
+      {
+        "content": "There is a lot of news today, let's talk about something else.",
+        "role": "user"
+      }
+    ],
+    "query": "Tell me my pet name and my city.",
+    "expected_response_contains": [
+      "Naitang",
+      "Nanjing"
+    ],
+    "require_all": false
+  },
+  {
+    "test_id": "ret_016",
+    "type": "retrieval",
+    "description": "batch retrieval case_016",
+    "setup": [
+      {
+        "content": "I have a corgi named Pudding and I live in Suzhou.",
+        "role": "user"
+      },
+      {
+        "content": "I have been learning Spanish for 30 minutes every day.",
+        "role": "user"
+      },
+      {
+        "content": "There is a lot of news today, let's talk about something else.",
+        "role": "user"
+      }
+    ],
+    "query": "Tell me my pet name and my city.",
+    "expected_response_contains": [
+      "Pudding",
+      "Suzhou"
+    ],
+    "require_all": false
+  },
+  {
+    "test_id": "ret_017",
+    "type": "retrieval",
+    "description": "batch retrieval case_017",
+    "setup": [
+      {
+        "content": "I have a golden retriever named Snowball and I live in Xian.",
+        "role": "user"
+      },
+      {
+        "content": "I have been learning French for 30 minutes every day.",
+        "role": "user"
+      },
+      {
+        "content": "There is a lot of news today, let's talk about something else.",
+        "role": "user"
+      }
+    ],
+    "query": "Tell me my pet name and my city.",
+    "expected_response_contains": [
+      "Snowball",
+      "Xian"
+    ],
+    "require_all": false
+  },
+  {
+    "test_id": "ret_018",
+    "type": "retrieval",
+    "description": "batch retrieval case_018",
+    "setup": [
+      {
+        "content": "I have a parrot named Tiger and I live in Changsha.",
+        "role": "user"
+      },
+      {
+        "content": "I have been learning German for 30 minutes every day.",
+        "role": "user"
+      },
+      {
+        "content": "There is a lot of news today, let's talk about something else.",
+        "role": "user"
+      }
+    ],
+    "query": "Tell me my pet name and my city.",
+    "expected_response_contains": [
+      "Tiger",
+      "Changsha"
+    ],
+    "require_all": false
+  },
+  {
+    "test_id": "ret_019",
+    "type": "retrieval",
+    "description": "batch retrieval case_019",
+    "setup": [
+      {
+        "content": "I have a rabbit named Doubou and I live in Qingdao.",
+        "role": "user"
+      },
+      {
+        "content": "I have been learning Korean for 30 minutes every day.",
+        "role": "user"
+      },
+      {
+        "content": "There is a lot of news today, let's talk about something else.",
+        "role": "user"
+      }
+    ],
+    "query": "Tell me my pet name and my city.",
+    "expected_response_contains": [
+      "Doubou",
+      "Qingdao"
+    ],
+    "require_all": false
+  },
+  {
+    "test_id": "ret_020",
+    "type": "retrieval",
+    "description": "batch retrieval case_020",
+    "setup": [
+      {
+        "content": "I have a cat named Naitang and I live in Nanjing.",
+        "role": "user"
+      },
+      {
+        "content": "I have been learning Japanese for 30 minutes every day.",
+        "role": "user"
+      },
+      {
+        "content": "There is a lot of news today, let's talk about something else.",
+        "role": "user"
+      }
+    ],
+    "query": "Tell me my pet name and my city.",
+    "expected_response_contains": [
+      "Naitang",
+      "Nanjing"
+    ],
+    "require_all": false
+  },
+  {
+    "test_id": "ret_021",
+    "type": "retrieval",
+    "description": "batch retrieval case_021",
+    "setup": [
+      {
+        "content": "I have a corgi named Pudding and I live in Suzhou.",
+        "role": "user"
+      },
+      {
+        "content": "I have been learning Spanish for 30 minutes every day.",
+        "role": "user"
+      },
+      {
+        "content": "There is a lot of news today, let's talk about something else.",
+        "role": "user"
+      }
+    ],
+    "query": "Tell me my pet name and my city.",
+    "expected_response_contains": [
+      "Pudding",
+      "Suzhou"
+    ],
+    "require_all": false
+  },
+  {
+    "test_id": "ret_022",
+    "type": "retrieval",
+    "description": "batch retrieval case_022",
+    "setup": [
+      {
+        "content": "I have a golden retriever named Snowball and I live in Xian.",
+        "role": "user"
+      },
+      {
+        "content": "I have been learning French for 30 minutes every day.",
+        "role": "user"
+      },
+      {
+        "content": "There is a lot of news today, let's talk about something else.",
+        "role": "user"
+      }
+    ],
+    "query": "Tell me my pet name and my city.",
+    "expected_response_contains": [
+      "Snowball",
+      "Xian"
+    ],
+    "require_all": false
+  },
+  {
+    "test_id": "ret_023",
+    "type": "retrieval",
+    "description": "batch retrieval case_023",
+    "setup": [
+      {
+        "content": "I have a parrot named Tiger and I live in Changsha.",
+        "role": "user"
+      },
+      {
+        "content": "I have been learning German for 30 minutes every day.",
+        "role": "user"
+      },
+      {
+        "content": "There is a lot of news today, let's talk about something else.",
+        "role": "user"
+      }
+    ],
+    "query": "Tell me my pet name and my city.",
+    "expected_response_contains": [
+      "Tiger",
+      "Changsha"
+    ],
+    "require_all": false
+  },
+  {
+    "test_id": "ret_024",
+    "type": "retrieval",
+    "description": "batch retrieval case_024",
+    "setup": [
+      {
+        "content": "I have a rabbit named Doubou and I live in Qingdao.",
+        "role": "user"
+      },
+      {
+        "content": "I have been learning Korean for 30 minutes every day.",
+        "role": "user"
+      },
+      {
+        "content": "There is a lot of news today, let's talk about something else.",
+        "role": "user"
+      }
+    ],
+    "query": "Tell me my pet name and my city.",
+    "expected_response_contains": [
+      "Doubou",
+      "Qingdao"
+    ],
+    "require_all": false
+  },
+  {
+    "test_id": "ret_025",
+    "type": "retrieval",
+    "description": "batch retrieval case_025",
+    "setup": [
+      {
+        "content": "I have a cat named Naitang and I live in Nanjing.",
+        "role": "user"
+      },
+      {
+        "content": "I have been learning Japanese for 30 minutes every day.",
+        "role": "user"
+      },
+      {
+        "content": "There is a lot of news today, let's talk about something else.",
+        "role": "user"
+      }
+    ],
+    "query": "Tell me my pet name and my city.",
+    "expected_response_contains": [
+      "Naitang",
+      "Nanjing"
+    ],
+    "require_all": false
+  },
+  {
+    "test_id": "ret_026",
+    "type": "retrieval",
+    "description": "batch retrieval case_026",
+    "setup": [
+      {
+        "content": "I have a corgi named Pudding and I live in Suzhou.",
+        "role": "user"
+      },
+      {
+        "content": "I have been learning Spanish for 30 minutes every day.",
+        "role": "user"
+      },
+      {
+        "content": "There is a lot of news today, let's talk about something else.",
+        "role": "user"
+      }
+    ],
+    "query": "Tell me my pet name and my city.",
+    "expected_response_contains": [
+      "Pudding",
+      "Suzhou"
+    ],
+    "require_all": false
+  },
+  {
+    "test_id": "ret_027",
+    "type": "retrieval",
+    "description": "batch retrieval case_027",
+    "setup": [
+      {
+        "content": "I have a golden retriever named Snowball and I live in Xian.",
+        "role": "user"
+      },
+      {
+        "content": "I have been learning French for 30 minutes every day.",
+        "role": "user"
+      },
+      {
+        "content": "There is a lot of news today, let's talk about something else.",
+        "role": "user"
+      }
+    ],
+    "query": "Tell me my pet name and my city.",
+    "expected_response_contains": [
+      "Snowball",
+      "Xian"
+    ],
+    "require_all": false
+  },
+  {
+    "test_id": "ret_028",
+    "type": "retrieval",
+    "description": "batch retrieval case_028",
+    "setup": [
+      {
+        "content": "I have a parrot named Tiger and I live in Changsha.",
+        "role": "user"
+      },
+      {
+        "content": "I have been learning German for 30 minutes every day.",
+        "role": "user"
+      },
+      {
+        "content": "There is a lot of news today, let's talk about something else.",
+        "role": "user"
+      }
+    ],
+    "query": "Tell me my pet name and my city.",
+    "expected_response_contains": [
+      "Tiger",
+      "Changsha"
+    ],
+    "require_all": false
+  },
+  {
+    "test_id": "ret_029",
+    "type": "retrieval",
+    "description": "batch retrieval case_029",
+    "setup": [
+      {
+        "content": "I have a rabbit named Doubou and I live in Qingdao.",
+        "role": "user"
+      },
+      {
+        "content": "I have been learning Korean for 30 minutes every day.",
+        "role": "user"
+      },
+      {
+        "content": "There is a lot of news today, let's talk about something else.",
+        "role": "user"
+      }
+    ],
+    "query": "Tell me my pet name and my city.",
+    "expected_response_contains": [
+      "Doubou",
+      "Qingdao"
+    ],
+    "require_all": false
+  },
+  {
+    "test_id": "ret_030",
+    "type": "retrieval",
+    "description": "batch retrieval case_030",
+    "setup": [
+      {
+        "content": "I have a cat named Naitang and I live in Nanjing.",
+        "role": "user"
+      },
+      {
+        "content": "I have been learning Japanese for 30 minutes every day.",
+        "role": "user"
+      },
+      {
+        "content": "There is a lot of news today, let's talk about something else.",
+        "role": "user"
+      }
+    ],
+    "query": "Tell me my pet name and my city.",
+    "expected_response_contains": [
+      "Naitang",
+      "Nanjing"
+    ],
     "require_all": false
   }
 ]

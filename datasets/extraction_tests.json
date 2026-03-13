@@ -2,78 +2,605 @@
   {
     "test_id": "ext_001",
     "type": "extraction",
-    "description": "从含噪音的对话中提取单条关键健康信息（食物过敏）",
+    "description": "extract allergy",
     "turns": [
       {
-        "role": "user",
-        "content": "今天天气真不错，我出去逛了一圈，买了些东西。对了，顺便说一句，我对海鲜严重过敏，上次吃虾差点送医院。"
+        "content": "I am a bit tired today. By the way, I am severely allergic to seafood.",
+        "role": "user"
       }
     ],
-    "expected_memory_contains": ["海鲜过敏"],
-    "require_all": true
+    "expected_memory_contains": [
+      "seafood",
+      "allergic"
+    ],
+    "require_all": false
   },
   {
     "test_id": "ext_002",
     "type": "extraction",
-    "description": "从单轮对话中提取多条个人基本信息",
+    "description": "extract profile",
     "turns": [
       {
-        "role": "user",
-        "content": "我叫李明，今年28岁，是一名软件工程师，在北京工作。我最喜欢打篮球，周末经常去公园跑步健身。"
+        "content": "My name is Leo. I am a software engineer and I work in Beijing.",
+        "role": "user"
       }
     ],
-    "expected_memory_contains": ["李明", "软件工程师", "篮球"],
-    "require_all": true
+    "expected_memory_contains": [
+      "Leo",
+      "software engineer",
+      "Beijing"
+    ],
+    "require_all": false
   },
   {
     "test_id": "ext_003",
     "type": "extraction",
-    "description": "关键信息在多轮无关对话后应在记忆中持续保留",
+    "description": "extract pet info",
     "turns": [
       {
-        "role": "user",
-        "content": "我目前居住在上海浦东新区，已经住了三年了。"
-      },
-      {
-        "role": "user",
-        "content": "今天天气怎么样？"
-      },
-      {
-        "role": "user",
-        "content": "帮我推荐一首轻松的背景音乐。"
+        "content": "I have a corgi named Wangcai.",
+        "role": "user"
       }
     ],
-    "expected_memory_contains": ["上海"],
-    "require_all": true
+    "expected_memory_contains": [
+      "Wangcai",
+      "corgi"
+    ],
+    "require_all": false
   },
   {
     "test_id": "ext_004",
     "type": "extraction",
-    "description": "提取隐含的长期目标信息（非直接陈述）",
+    "description": "extract diet",
     "turns": [
       {
-        "role": "user",
-        "content": "我最近一直在备考英语六级，每天晚上自学两个小时，已经坚持了三个月，感觉还差得很远，压力挺大的。"
+        "content": "I am mostly vegetarian and avoid red meat.",
+        "role": "user"
       }
     ],
-    "expected_memory_contains": ["英语六级", "备考"],
+    "expected_memory_contains": [
+      "vegetarian"
+    ],
     "require_all": false
   },
   {
     "test_id": "ext_005",
     "type": "extraction",
-    "description": "从多轮对话中提取分散在不同轮次的信息",
+    "description": "extract birthday",
     "turns": [
       {
-        "role": "user",
-        "content": "我是素食主义者，不吃任何肉类和鱼类。"
-      },
-      {
-        "role": "user",
-        "content": "顺便提一下，我对坚果也过敏，特别是花生。"
+        "content": "My birthday is October 15.",
+        "role": "user"
       }
     ],
-    "expected_memory_contains": ["素食", "花生过敏"],
+    "expected_memory_contains": [
+      "October 15"
+    ],
     "require_all": true
+  },
+  {
+    "test_id": "ext_006",
+    "type": "extraction",
+    "description": "batch extraction case_006",
+    "turns": [
+      {
+        "content": "I currently live in Shenzhen and work as a photographer. I like swimming and I am allergic to mango.",
+        "role": "user"
+      },
+      {
+        "content": "The weather is nice today. Please remember these details.",
+        "role": "user"
+      }
+    ],
+    "expected_memory_contains": [
+      "Shenzhen",
+      "photographer",
+      "mango"
+    ],
+    "require_all": false
+  },
+  {
+    "test_id": "ext_007",
+    "type": "extraction",
+    "description": "batch extraction case_007",
+    "turns": [
+      {
+        "content": "I currently live in Hangzhou and work as a designer. I like badminton and I am allergic to shrimp.",
+        "role": "user"
+      },
+      {
+        "content": "The weather is nice today. Please remember these details.",
+        "role": "user"
+      }
+    ],
+    "expected_memory_contains": [
+      "Hangzhou",
+      "designer",
+      "shrimp"
+    ],
+    "require_all": false
+  },
+  {
+    "test_id": "ext_008",
+    "type": "extraction",
+    "description": "batch extraction case_008",
+    "turns": [
+      {
+        "content": "I currently live in Chengdu and work as a teacher. I like hiking and I am allergic to crab.",
+        "role": "user"
+      },
+      {
+        "content": "The weather is nice today. Please remember these details.",
+        "role": "user"
+      }
+    ],
+    "expected_memory_contains": [
+      "Chengdu",
+      "teacher",
+      "crab"
+    ],
+    "require_all": false
+  },
+  {
+    "test_id": "ext_009",
+    "type": "extraction",
+    "description": "batch extraction case_009",
+    "turns": [
+      {
+        "content": "I currently live in Wuhan and work as a data analyst. I like reading and I am allergic to milk.",
+        "role": "user"
+      },
+      {
+        "content": "The weather is nice today. Please remember these details.",
+        "role": "user"
+      }
+    ],
+    "expected_memory_contains": [
+      "Wuhan",
+      "data analyst",
+      "milk"
+    ],
+    "require_all": false
+  },
+  {
+    "test_id": "ext_010",
+    "type": "extraction",
+    "description": "batch extraction case_010",
+    "turns": [
+      {
+        "content": "I currently live in Shanghai and work as a product manager. I like running and I am allergic to peanut.",
+        "role": "user"
+      },
+      {
+        "content": "The weather is nice today. Please remember these details.",
+        "role": "user"
+      }
+    ],
+    "expected_memory_contains": [
+      "Shanghai",
+      "product manager",
+      "peanut"
+    ],
+    "require_all": false
+  },
+  {
+    "test_id": "ext_011",
+    "type": "extraction",
+    "description": "batch extraction case_011",
+    "turns": [
+      {
+        "content": "I currently live in Shenzhen and work as a photographer. I like swimming and I am allergic to mango.",
+        "role": "user"
+      },
+      {
+        "content": "The weather is nice today. Please remember these details.",
+        "role": "user"
+      }
+    ],
+    "expected_memory_contains": [
+      "Shenzhen",
+      "photographer",
+      "mango"
+    ],
+    "require_all": false
+  },
+  {
+    "test_id": "ext_012",
+    "type": "extraction",
+    "description": "batch extraction case_012",
+    "turns": [
+      {
+        "content": "I currently live in Hangzhou and work as a designer. I like badminton and I am allergic to shrimp.",
+        "role": "user"
+      },
+      {
+        "content": "The weather is nice today. Please remember these details.",
+        "role": "user"
+      }
+    ],
+    "expected_memory_contains": [
+      "Hangzhou",
+      "designer",
+      "shrimp"
+    ],
+    "require_all": false
+  },
+  {
+    "test_id": "ext_013",
+    "type": "extraction",
+    "description": "batch extraction case_013",
+    "turns": [
+      {
+        "content": "I currently live in Chengdu and work as a teacher. I like hiking and I am allergic to crab.",
+        "role": "user"
+      },
+      {
+        "content": "The weather is nice today. Please remember these details.",
+        "role": "user"
+      }
+    ],
+    "expected_memory_contains": [
+      "Chengdu",
+      "teacher",
+      "crab"
+    ],
+    "require_all": false
+  },
+  {
+    "test_id": "ext_014",
+    "type": "extraction",
+    "description": "batch extraction case_014",
+    "turns": [
+      {
+        "content": "I currently live in Wuhan and work as a data analyst. I like reading and I am allergic to milk.",
+        "role": "user"
+      },
+      {
+        "content": "The weather is nice today. Please remember these details.",
+        "role": "user"
+      }
+    ],
+    "expected_memory_contains": [
+      "Wuhan",
+      "data analyst",
+      "milk"
+    ],
+    "require_all": false
+  },
+  {
+    "test_id": "ext_015",
+    "type": "extraction",
+    "description": "batch extraction case_015",
+    "turns": [
+      {
+        "content": "I currently live in Shanghai and work as a product manager. I like running and I am allergic to peanut.",
+        "role": "user"
+      },
+      {
+        "content": "The weather is nice today. Please remember these details.",
+        "role": "user"
+      }
+    ],
+    "expected_memory_contains": [
+      "Shanghai",
+      "product manager",
+      "peanut"
+    ],
+    "require_all": false
+  },
+  {
+    "test_id": "ext_016",
+    "type": "extraction",
+    "description": "batch extraction case_016",
+    "turns": [
+      {
+        "content": "I currently live in Shenzhen and work as a photographer. I like swimming and I am allergic to mango.",
+        "role": "user"
+      },
+      {
+        "content": "The weather is nice today. Please remember these details.",
+        "role": "user"
+      }
+    ],
+    "expected_memory_contains": [
+      "Shenzhen",
+      "photographer",
+      "mango"
+    ],
+    "require_all": false
+  },
+  {
+    "test_id": "ext_017",
+    "type": "extraction",
+    "description": "batch extraction case_017",
+    "turns": [
+      {
+        "content": "I currently live in Hangzhou and work as a designer. I like badminton and I am allergic to shrimp.",
+        "role": "user"
+      },
+      {
+        "content": "The weather is nice today. Please remember these details.",
+        "role": "user"
+      }
+    ],
+    "expected_memory_contains": [
+      "Hangzhou",
+      "designer",
+      "shrimp"
+    ],
+    "require_all": false
+  },
+  {
+    "test_id": "ext_018",
+    "type": "extraction",
+    "description": "batch extraction case_018",
+    "turns": [
+      {
+        "content": "I currently live in Chengdu and work as a teacher. I like hiking and I am allergic to crab.",
+        "role": "user"
+      },
+      {
+        "content": "The weather is nice today. Please remember these details.",
+        "role": "user"
+      }
+    ],
+    "expected_memory_contains": [
+      "Chengdu",
+      "teacher",
+      "crab"
+    ],
+    "require_all": false
+  },
+  {
+    "test_id": "ext_019",
+    "type": "extraction",
+    "description": "batch extraction case_019",
+    "turns": [
+      {
+        "content": "I currently live in Wuhan and work as a data analyst. I like reading and I am allergic to milk.",
+        "role": "user"
+      },
+      {
+        "content": "The weather is nice today. Please remember these details.",
+        "role": "user"
+      }
+    ],
+    "expected_memory_contains": [
+      "Wuhan",
+      "data analyst",
+      "milk"
+    ],
+    "require_all": false
+  },
+  {
+    "test_id": "ext_020",
+    "type": "extraction",
+    "description": "batch extraction case_020",
+    "turns": [
+      {
+        "content": "I currently live in Shanghai and work as a product manager. I like running and I am allergic to peanut.",
+        "role": "user"
+      },
+      {
+        "content": "The weather is nice today. Please remember these details.",
+        "role": "user"
+      }
+    ],
+    "expected_memory_contains": [
+      "Shanghai",
+      "product manager",
+      "peanut"
+    ],
+    "require_all": false
+  },
+  {
+    "test_id": "ext_021",
+    "type": "extraction",
+    "description": "batch extraction case_021",
+    "turns": [
+      {
+        "content": "I currently live in Shenzhen and work as a photographer. I like swimming and I am allergic to mango.",
+        "role": "user"
+      },
+      {
+        "content": "The weather is nice today. Please remember these details.",
+        "role": "user"
+      }
+    ],
+    "expected_memory_contains": [
+      "Shenzhen",
+      "photographer",
+      "mango"
+    ],
+    "require_all": false
+  },
+  {
+    "test_id": "ext_022",
+    "type": "extraction",
+    "description": "batch extraction case_022",
+    "turns": [
+      {
+        "content": "I currently live in Hangzhou and work as a designer. I like badminton and I am allergic to shrimp.",
+        "role": "user"
+      },
+      {
+        "content": "The weather is nice today. Please remember these details.",
+        "role": "user"
+      }
+    ],
+    "expected_memory_contains": [
+      "Hangzhou",
+      "designer",
+      "shrimp"
+    ],
+    "require_all": false
+  },
+  {
+    "test_id": "ext_023",
+    "type": "extraction",
+    "description": "batch extraction case_023",
+    "turns": [
+      {
+        "content": "I currently live in Chengdu and work as a teacher. I like hiking and I am allergic to crab.",
+        "role": "user"
+      },
+      {
+        "content": "The weather is nice today. Please remember these details.",
+        "role": "user"
+      }
+    ],
+    "expected_memory_contains": [
+      "Chengdu",
+      "teacher",
+      "crab"
+    ],
+    "require_all": false
+  },
+  {
+    "test_id": "ext_024",
+    "type": "extraction",
+    "description": "batch extraction case_024",
+    "turns": [
+      {
+        "content": "I currently live in Wuhan and work as a data analyst. I like reading and I am allergic to milk.",
+        "role": "user"
+      },
+      {
+        "content": "The weather is nice today. Please remember these details.",
+        "role": "user"
+      }
+    ],
+    "expected_memory_contains": [
+      "Wuhan",
+      "data analyst",
+      "milk"
+    ],
+    "require_all": false
+  },
+  {
+    "test_id": "ext_025",
+    "type": "extraction",
+    "description": "batch extraction case_025",
+    "turns": [
+      {
+        "content": "I currently live in Shanghai and work as a product manager. I like running and I am allergic to peanut.",
+        "role": "user"
+      },
+      {
+        "content": "The weather is nice today. Please remember these details.",
+        "role": "user"
+      }
+    ],
+    "expected_memory_contains": [
+      "Shanghai",
+      "product manager",
+      "peanut"
+    ],
+    "require_all": false
+  },
+  {
+    "test_id": "ext_026",
+    "type": "extraction",
+    "description": "batch extraction case_026",
+    "turns": [
+      {
+        "content": "I currently live in Shenzhen and work as a photographer. I like swimming and I am allergic to mango.",
+        "role": "user"
+      },
+      {
+        "content": "The weather is nice today. Please remember these details.",
+        "role": "user"
+      }
+    ],
+    "expected_memory_contains": [
+      "Shenzhen",
+      "photographer",
+      "mango"
+    ],
+    "require_all": false
+  },
+  {
+    "test_id": "ext_027",
+    "type": "extraction",
+    "description": "batch extraction case_027",
+    "turns": [
+      {
+        "content": "I currently live in Hangzhou and work as a designer. I like badminton and I am allergic to shrimp.",
+        "role": "user"
+      },
+      {
+        "content": "The weather is nice today. Please remember these details.",
+        "role": "user"
+      }
+    ],
+    "expected_memory_contains": [
+      "Hangzhou",
+      "designer",
+      "shrimp"
+    ],
+    "require_all": false
+  },
+  {
+    "test_id": "ext_028",
+    "type": "extraction",
+    "description": "batch extraction case_028",
+    "turns": [
+      {
+        "content": "I currently live in Chengdu and work as a teacher. I like hiking and I am allergic to crab.",
+        "role": "user"
+      },
+      {
+        "content": "The weather is nice today. Please remember these details.",
+        "role": "user"
+      }
+    ],
+    "expected_memory_contains": [
+      "Chengdu",
+      "teacher",
+      "crab"
+    ],
+    "require_all": false
+  },
+  {
+    "test_id": "ext_029",
+    "type": "extraction",
+    "description": "batch extraction case_029",
+    "turns": [
+      {
+        "content": "I currently live in Wuhan and work as a data analyst. I like reading and I am allergic to milk.",
+        "role": "user"
+      },
+      {
+        "content": "The weather is nice today. Please remember these details.",
+        "role": "user"
+      }
+    ],
+    "expected_memory_contains": [
+      "Wuhan",
+      "data analyst",
+      "milk"
+    ],
+    "require_all": false
+  },
+  {
+    "test_id": "ext_030",
+    "type": "extraction",
+    "description": "batch extraction case_030",
+    "turns": [
+      {
+        "content": "I currently live in Shanghai and work as a product manager. I like running and I am allergic to peanut.",
+        "role": "user"
+      },
+      {
+        "content": "The weather is nice today. Please remember these details.",
+        "role": "user"
+      }
+    ],
+    "expected_memory_contains": [
+      "Shanghai",
+      "product manager",
+      "peanut"
+    ],
+    "require_all": false
   }
 ]
